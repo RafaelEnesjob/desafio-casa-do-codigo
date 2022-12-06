@@ -1,7 +1,5 @@
 package br.com.casadocodigo.primeirodesafio.api.rest.models.request;
 
-import br.com.casadocodigo.primeirodesafio.api.domain.entities.Author;
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -24,7 +22,4 @@ public class AuthorRequestModel {
         this.description = description;
     }
 
-//    public Author toModel() {
-//        return new Author(this.name, this.email, this.description);
-//    }
 }
