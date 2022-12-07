@@ -2,8 +2,7 @@ package br.com.casadocodigo.primeirodesafio.api.rest.controllers;
 
 import br.com.casadocodigo.primeirodesafio.api.domain.entities.Author;
 import br.com.casadocodigo.primeirodesafio.api.domain.services.impl.AuthorServiceImpl;
-import br.com.casadocodigo.primeirodesafio.api.rest.mapper.AuthorMapperRequest;
-import br.com.casadocodigo.primeirodesafio.api.rest.mapper.AuthorMapperResponse;
+import br.com.casadocodigo.primeirodesafio.api.rest.mapper.AuthorMapper;
 import br.com.casadocodigo.primeirodesafio.api.rest.models.request.AuthorRequestModel;
 import br.com.casadocodigo.primeirodesafio.api.rest.models.response.AuthorResponseModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +20,7 @@ import javax.validation.Valid;
 public class AuthorController {
 
     @Autowired
-    private AuthorMapperRequest authorMapperRequest;
-    @Autowired
-    private AuthorMapperResponse authorMapperResponse;
+    private AuthorMapper converter;
 
     private final AuthorServiceImpl authorService;
 
@@ -31,18 +28,10 @@ public class AuthorController {
         this.authorService = authorService;
     }
 
-//    @PostMapping
-//    public ResponseEntity<AuthorResponseModel> createAuthor(@Valid @RequestBody AuthorRequestModel authorRequestModel) {
-//        var author = authorMapperRequest.toAuthorRequest(authorRequestModel);
-//        var authorSave = authorService.registerAuthor(author);
-//        return new ResponseEntity<>(authorMapperResponse.toAuthorResponse(authorSave)),HttpStatus.OK);
-//    }
-
     @PostMapping
-    public AuthorResponseModel createAuthor(@Valid @RequestBody AuthorRequestModel authorRequestModel) {
-        var author = authorMapperRequest.toAuthorRequest(authorRequestModel);
-        var authorSave = authorService.registerAuthor(author);
-        return authorMapperResponse.toAuthorResponse(authorSave);
+    public ResponseEntity<AuthorResponseModel> createAuthor(@Valid @RequestBody AuthorRequestModel authorRequestModel) {
+        Author author = converter.toEntity(authorRequestModel);
+        return new ResponseEntity<>(converter.toModel(authorService.registerAuthor(author)), HttpStatus.CREATED);
     }
 
 }
