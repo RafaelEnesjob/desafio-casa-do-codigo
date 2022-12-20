@@ -15,7 +15,6 @@ public class AuthorServiceImpl implements IAuthorService {
         this.authorRepository = authorRepository;
     }
 
-
     @Override
     @Transactional
     public Author registerAuthor(final Author author) {

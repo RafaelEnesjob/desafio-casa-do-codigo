@@ -23,6 +23,7 @@ public class Author {
         this.creationDate = creationDate;
     }
 
+    @Deprecated
     public Author() {
     }
 

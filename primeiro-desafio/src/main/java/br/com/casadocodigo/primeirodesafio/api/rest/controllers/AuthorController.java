@@ -2,16 +2,15 @@ package br.com.casadocodigo.primeirodesafio.api.rest.controllers;
 
 import br.com.casadocodigo.primeirodesafio.api.domain.entities.Author;
 import br.com.casadocodigo.primeirodesafio.api.domain.services.impl.AuthorServiceImpl;
+import br.com.casadocodigo.primeirodesafio.api.domain.services.impl.ProibeEmailDuplicadoAutorValidator;
 import br.com.casadocodigo.primeirodesafio.api.rest.mapper.AuthorMapper;
 import br.com.casadocodigo.primeirodesafio.api.rest.models.request.AuthorRequestModel;
 import br.com.casadocodigo.primeirodesafio.api.rest.models.response.AuthorResponseModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -26,6 +25,13 @@ public class AuthorController {
 
     public AuthorController(AuthorServiceImpl authorService) {
         this.authorService = authorService;
+    }
+
+    @Autowired
+    private ProibeEmailDuplicadoAutorValidator proibeEmailDuplicadoAutorValidator;
+    @InitBinder
+    public void init(WebDataBinder binder) {
+        binder.addValidators(proibeEmailDuplicadoAutorValidator);
     }
 
     @PostMapping
