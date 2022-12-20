@@ -1,4 +1,4 @@
-package br.com.casadocodigo.primeirodesafio.api.rest.handler;
+package br.com.casadocodigo.primeirodesafio.api.domain.exceptions.handler;
 
 import br.com.casadocodigo.primeirodesafio.api.domain.exceptions.MethodArgumentNotValidDetails;
 import br.com.casadocodigo.primeirodesafio.api.domain.exceptions.MethodArgumentNotValidException;
