@@ -9,13 +9,16 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class RestExceptionHandler {
+
+    private static final String MESSAGE_ERROR = "Já existe um autor cadastrado com o email informado";
+    private static final String DETAIL_ERROR = "Informe um email diferente para prosseguir com o cadastro";
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> handleMethodArgumentNotValidException(MethodArgumentNotValidException methodArgumentNotValidException) {
         MethodArgumentNotValidDetails methodArgumentNotValidDetails = MethodArgumentNotValidDetails.Builder
                 .newBuilder()
-                .messageError("Já existe um autor cadastrado com o email informado")
+                .messageError(MESSAGE_ERROR)
                 .Status(HttpStatus.FORBIDDEN.value())
-                .detailError("Informe um email diferente para prosseguir com o cadastro")
+                .detailError(DETAIL_ERROR)
                 .build();
 
         return new ResponseEntity<>(methodArgumentNotValidDetails, HttpStatus.FORBIDDEN);
