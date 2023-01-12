@@ -19,7 +19,7 @@ import javax.validation.Valid;
 public class AuthorController {
 
     @Autowired
-    private AuthorMapper converter;
+    private AuthorMapper authorMapper;
 
     private final AuthorServiceImpl authorService;
 
@@ -36,8 +36,8 @@ public class AuthorController {
 
     @PostMapping
     public ResponseEntity<AuthorResponseModel> createAuthor(@Valid @RequestBody AuthorRequestModel authorRequestModel) {
-        Author author = converter.toEntity(authorRequestModel);
-        return new ResponseEntity<>(converter.toModel(authorService.registerAuthor(author)), HttpStatus.CREATED);
+        Author author = authorMapper.toEntityAuthor(authorRequestModel);
+        return new ResponseEntity<>(authorMapper.toModelAuthor(authorService.registerAuthor(author)), HttpStatus.CREATED);
     }
 
 }
